@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="EntitiesModel" namespace="TestApp.Models" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="EntitiesModel" backend="mssql" default-schema="dbo" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="TestApp.Models" default="true">
+      <orm:class name="Entity" uniqueId="497dae4f-aac6-4901-99e9-f29a0fb48a8f">
+        <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:field name="_id" property="Id" uniqueId="3d363056-d792-47ff-82b6-5073bc71e702" type="System.Int64" />
+        <orm:field name="_name" property="Name" uniqueId="0ea502eb-05f6-4c84-9206-3ed8f77b597b" type="System.String" />
+        <orm:field name="_emailAddress" property="EmailAddress" uniqueId="c539160a-2551-443f-b9fa-423d7bc19c1e" type="System.String" />
+        <orm:field name="_uniqueId" property="UniqueId" uniqueId="5a528526-5809-4c9f-8ce5-a8b2bc313d48" type="System.String" />
+        <orm:field name="_dateCreated" property="DateCreated" uniqueId="a79ead3e-21e9-481f-abff-f888aadc4421" type="System.String" />
+        <orm:field name="_files" property="Files" behavior="readwrite" uniqueId="130a2da3-d60a-4f93-afb1-b8e8b2d9f84a" type="TestApp.Models.Files">
+          <orm:collection element-class="TestApp.Models.Files" inverse-field="_entity" order-by="" uniqueId="f1bf7ac7-7e33-43a8-8b38-c344e4226e66" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Files" uniqueId="3cec8185-4492-4953-b518-87cf5c567372">
+        <orm:identity>
+          <orm:single-field field-name="_id" />
+        </orm:identity>
+        <orm:field name="_id" property="Id" uniqueId="1415d0a4-0ade-4c7d-beca-20b7203faf6e" type="System.Int64" />
+        <orm:field name="_fileName" property="FileName" uniqueId="9bf9911d-f802-4dda-8b04-76b505094f32" type="System.String" />
+        <orm:field name="_fileTitle" property="FileTitle" uniqueId="c8f35cbc-6417-41e5-b830-2ba2c1b7928b" type="System.String" />
+        <orm:field name="_filePath" property="FilePath" uniqueId="2d8d367e-ad8d-413c-84a6-02006f6452fa" type="System.String" />
+        <orm:field name="_fileId" property="FileId" uniqueId="bd785273-055a-47d5-9f5d-b6e7077d773f" type="System.String" />
+        <orm:field name="_fileSize" property="FileSize" uniqueId="847cc38a-d45f-45ad-9781-daf9cb5f6d23" type="System.String" />
+        <orm:field name="_dateUploaded" property="DateUploaded" uniqueId="9ad5a691-73f5-4d66-840c-5e1c81566323" type="System.String" />
+        <orm:field name="_userId" property="UserId" uniqueId="43df8b09-4168-413e-b494-2b216dbce041" type="System.Int64" />
+        <orm:field name="_entity" property="Entity" behavior="readwrite" uniqueId="0be3fc21-8c08-4d1f-931a-651268e3ee27" type="TestApp.Models.Entity">
+          <orm:reference uniqueId="f1bf7ac7-7e33-43a8-8b38-c344e4226e66" association-name="FilesHasEntity">
+            <orm:sharedfield name="_userId" target-class="TestApp.Models.Entity" target-field="_id" />
+          </orm:reference>
+        </orm:field>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="" />
+    <orm:relational-naming-settings>
+      <orm:source-strategy>Property</orm:source-strategy>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>TestAppConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>data source=PETER;initial catalog=TestApp;persist security info=True;user id=sa;password=edikep2000</AppConfigConnectionString>
+    <InitialCatalog>TestApp</InitialCatalog>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+      <NavigationPropertyRules>
+        <IsPrefixSuffixEnabled>false</IsPrefixSuffixEnabled>
+      </NavigationPropertyRules>
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <GenerateDataAnnotationAttributes>true</GenerateDataAnnotationAttributes>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings>
+      <ExecuteScript>true</ExecuteScript>
+      <DeploymentProject>TestApp.Models</DeploymentProject>
+    </SchemaUpdateSettings>
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>MsSql</Backend>
+        <ProviderName>System.Data.SqlClient</ProviderName>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="497dae4f-aac6-4901-99e9-f29a0fb48a8f" name="Entity" namespace="TestApp.Models" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
+      <Property Id="3d363056-d792-47ff-82b6-5073bc71e702" name="Id" type="Int64" label="Id : Int64" identity="true" fieldName="_id" />
+      <Property Id="0ea502eb-05f6-4c84-9206-3ed8f77b597b" name="Name" label="Name : String" nullable="true" fieldName="_name" />
+      <Property Id="c539160a-2551-443f-b9fa-423d7bc19c1e" name="EmailAddress" label="EmailAddress : String" fieldName="_emailAddress" />
+      <Property Id="5a528526-5809-4c9f-8ce5-a8b2bc313d48" name="UniqueId" label="UniqueId : String" fieldName="_uniqueId" />
+      <Property Id="a79ead3e-21e9-481f-abff-f888aadc4421" name="DateCreated" label="DateCreated : String" fieldName="_dateCreated" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="905a6bbf-6db9-478c-b926-69efb2c1c235">
+          <NavigationalProperty Id="130a2da3-d60a-4f93-afb1-b8e8b2d9f84a" name="Files" type="IList&lt;Files&gt;" label="Files : IList&lt;Files&gt;" nullable="true" kind="Persistent" fieldName="_files" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="3cec8185-4492-4953-b518-87cf5c567372" name="Files" namespace="TestApp.Models" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="1415d0a4-0ade-4c7d-beca-20b7203faf6e" name="Id" type="Int64" label="Id : Int64" identity="true" fieldName="_id" />
+      <Property Id="9bf9911d-f802-4dda-8b04-76b505094f32" name="FileName" label="FileName : String" fieldName="_fileName" />
+      <Property Id="c8f35cbc-6417-41e5-b830-2ba2c1b7928b" name="FileTitle" label="FileTitle : String" fieldName="_fileTitle" />
+      <Property Id="2d8d367e-ad8d-413c-84a6-02006f6452fa" name="FilePath" label="FilePath : String" fieldName="_filePath" />
+      <Property Id="bd785273-055a-47d5-9f5d-b6e7077d773f" name="FileId" label="FileId : String" fieldName="_fileId" />
+      <Property Id="847cc38a-d45f-45ad-9781-daf9cb5f6d23" name="FileSize" label="FileSize : String" fieldName="_fileSize" />
+      <Property Id="9ad5a691-73f5-4d66-840c-5e1c81566323" name="DateUploaded" label="DateUploaded : String" fieldName="_dateUploaded" />
+      <Property Id="43df8b09-4168-413e-b494-2b216dbce041" name="UserId" type="Int64" label="UserId : Int64" fieldName="_userId" />
+      <AssociationTargets>
+        <Association Id="f1bf7ac7-7e33-43a8-8b38-c344e4226e66" SourceMultiplicity="ZeroOne" name="FilesHasEntity">
+          <DomainClassMoniker name="/EntitiesModel/Entity" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="92a08593-e656-4b03-b530-83d2c33da1bb">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Entity/Files" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="1ef5351f-e598-4cfd-9a7d-aece94931054">
+              <NavigationalPropertyMoniker name="/EntitiesModel/Files/Entity" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="5e88c5a7-218e-4486-8346-20d65d53de45">
+          <NavigationalProperty Id="0be3fc21-8c08-4d1f-931a-651268e3ee27" name="Entity" type="Entity" label="Entity : Entity" nullable="true" kind="Persistent" fieldName="_entity" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="33802b92-c04e-414c-9ff1-9b26faa11090">
+      <domainContainer name="EntitiesModel" namespace="TestApp.Models" showPropertiesCompartment="true">
+        <entitySetProperty name="Entities" namespace="TestApp.Models" type="Entity" label="Entities : IQueryable&lt;TestApp.Models.Entity&gt;" />
+        <entitySetProperty name="Files" namespace="TestApp.Models" type="Files" label="Files : IQueryable&lt;TestApp.Models.Files&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>
