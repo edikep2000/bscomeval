@@ -14,12 +14,15 @@
         <orm:field name="_emailAddress" property="EmailAddress" uniqueId="c539160a-2551-443f-b9fa-423d7bc19c1e" type="System.String" />
         <orm:field name="_uniqueId" property="UniqueId" uniqueId="5a528526-5809-4c9f-8ce5-a8b2bc313d48" type="System.String" />
         <orm:field name="_dateCreated" property="DateCreated" uniqueId="a79ead3e-21e9-481f-abff-f888aadc4421" type="System.String" />
-        <orm:field name="_files" property="Files" behavior="readwrite" uniqueId="130a2da3-d60a-4f93-afb1-b8e8b2d9f84a" type="TestApp.Models.Files">
+        <orm:field name="_files" property="Files" behavior="readwrite" uniqueId="130a2da3-d60a-4f93-afb1-b8e8b2d9f84a" type="TestApp.Models.Files" default-fetch-group="false" dependent="true">
           <orm:collection element-class="TestApp.Models.Files" inverse-field="_entity" order-by="" uniqueId="f1bf7ac7-7e33-43a8-8b38-c344e4226e66" />
         </orm:field>
       </orm:class>
       <orm:class name="Files" uniqueId="3cec8185-4492-4953-b518-87cf5c567372">
         <orm:identity>
+          <orm:key-generator name="autoinc">
+            <orm:key-generator-member property-name="Id" />
+          </orm:key-generator>
           <orm:single-field field-name="_id" />
         </orm:identity>
         <orm:field name="_id" property="Id" uniqueId="1415d0a4-0ade-4c7d-beca-20b7203faf6e" type="System.Int64" />
@@ -30,7 +33,7 @@
         <orm:field name="_fileSize" property="FileSize" uniqueId="847cc38a-d45f-45ad-9781-daf9cb5f6d23" type="System.String" />
         <orm:field name="_dateUploaded" property="DateUploaded" uniqueId="9ad5a691-73f5-4d66-840c-5e1c81566323" type="System.String" />
         <orm:field name="_userId" property="UserId" uniqueId="43df8b09-4168-413e-b494-2b216dbce041" type="System.Int64" />
-        <orm:field name="_entity" property="Entity" behavior="readwrite" uniqueId="0be3fc21-8c08-4d1f-931a-651268e3ee27" type="TestApp.Models.Entity">
+        <orm:field name="_entity" property="Entity" behavior="readwrite" uniqueId="0be3fc21-8c08-4d1f-931a-651268e3ee27" type="TestApp.Models.Entity" default-fetch-group="true">
           <orm:reference uniqueId="f1bf7ac7-7e33-43a8-8b38-c344e4226e66" association-name="FilesHasEntity">
             <orm:sharedfield name="_userId" target-class="TestApp.Models.Entity" target-field="_id" />
           </orm:reference>
@@ -39,6 +42,7 @@
     </orm:namespace>
     <orm:schema schema="" />
     <orm:relational-naming-settings>
+      <orm:remove-leading-underscore>False</orm:remove-leading-underscore>
       <orm:source-strategy>Property</orm:source-strategy>
       <orm:remove-camel-case>False</orm:remove-camel-case>
     </orm:relational-naming-settings>
@@ -70,11 +74,18 @@
     <SchemaUpdateSettings>
       <ExecuteScript>true</ExecuteScript>
       <DeploymentProject>TestApp.Models</DeploymentProject>
+      <UpdateDatabaseOperation>Migrate</UpdateDatabaseOperation>
     </SchemaUpdateSettings>
     <BackendConfigurationSettings>
       <BackendConfiguration>
         <Backend>MsSql</Backend>
         <ProviderName>System.Data.SqlClient</ProviderName>
+        <ConnectionPool>
+          <IsolationLevel>ReadUncommitted</IsolationLevel>
+        </ConnectionPool>
+        <Logging>
+          <MetricStoreSnapshotInterval>0</MetricStoreSnapshotInterval>
+        </Logging>
       </BackendConfiguration>
     </BackendConfigurationSettings>
   </ModelSettings>
@@ -87,11 +98,11 @@
       <Property Id="a79ead3e-21e9-481f-abff-f888aadc4421" name="DateCreated" label="DateCreated : String" fieldName="_dateCreated" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="905a6bbf-6db9-478c-b926-69efb2c1c235">
-          <NavigationalProperty Id="130a2da3-d60a-4f93-afb1-b8e8b2d9f84a" name="Files" type="IList&lt;Files&gt;" label="Files : IList&lt;Files&gt;" nullable="true" kind="Persistent" fieldName="_files" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="130a2da3-d60a-4f93-afb1-b8e8b2d9f84a" name="Files" type="IList&lt;Files&gt;" label="Files : IList&lt;Files&gt;" nullable="true" kind="Persistent" loadBehavior="Lazy" fieldName="_files" isDependent="true" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="3cec8185-4492-4953-b518-87cf5c567372" name="Files" namespace="TestApp.Models" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+    <DomainClass Id="3cec8185-4492-4953-b518-87cf5c567372" name="Files" namespace="TestApp.Models" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="Id">
       <Property Id="1415d0a4-0ade-4c7d-beca-20b7203faf6e" name="Id" type="Int64" label="Id : Int64" identity="true" fieldName="_id" />
       <Property Id="9bf9911d-f802-4dda-8b04-76b505094f32" name="FileName" label="FileName : String" fieldName="_fileName" />
       <Property Id="c8f35cbc-6417-41e5-b830-2ba2c1b7928b" name="FileTitle" label="FileTitle : String" fieldName="_fileTitle" />
@@ -117,7 +128,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="5e88c5a7-218e-4486-8346-20d65d53de45">
-          <NavigationalProperty Id="0be3fc21-8c08-4d1f-931a-651268e3ee27" name="Entity" type="Entity" label="Entity : Entity" nullable="true" kind="Persistent" fieldName="_entity" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="0be3fc21-8c08-4d1f-931a-651268e3ee27" name="Entity" type="Entity" label="Entity : Entity" nullable="true" kind="Persistent" loadBehavior="Eager" fieldName="_entity" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

@@ -16,7 +16,7 @@ namespace TestApp.Controllers
             return View(inline);
         }
 
-		public ActionResult UploadFile(int? entityId) // optionally receive values specified with Html helper
+		public ActionResult UploadFile(int? entityId, string fullName, string emailAddress) // optionally receive values specified with Html helper
         {            
             // here we can send in some extra info to be included with the delete url 
             var statuses = new List<ViewDataUploadFileResult>();
@@ -71,38 +71,5 @@ namespace TestApp.Controllers
             return viewresult;
         }
 
-
-
-
-
-        //here i am receving the extra info injected
-        [HttpPost] // should accept only post
-        public ActionResult DeleteFile(int? entityId, string fileUrl)
-        {
-            var filePath = Server.MapPath("~" + fileUrl);
-
-            if (System.IO.File.Exists(filePath))
-                System.IO.File.Delete(filePath);
-
-            var viewresult = Json(new { error = String.Empty });
-            //for IE8 which does not accept application/json
-            if (Request.Headers["Accept"] != null && !Request.Headers["Accept"].Contains("application/json"))
-                viewresult.ContentType = "text/plain"; 
-
-            return viewresult; // trigger success
-        }
-
-
-        public ActionResult DownloadFile(string fileUrl, string mimetype)
-        {
-            var filePath = Server.MapPath("~" + fileUrl);
-
-            if (System.IO.File.Exists(filePath))
-                return File(filePath, mimetype);
-            else
-            {
-                return new HttpNotFoundResult("File not found");
-            }
-        }
     }
 }

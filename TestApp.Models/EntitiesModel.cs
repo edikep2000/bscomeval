@@ -71,6 +71,8 @@ namespace TestApp.Models
 			BackendConfiguration backend = new BackendConfiguration();
 			backend.Backend = "MsSql";
 			backend.ProviderName = "System.Data.SqlClient";
+			backend.Logging.MetricStoreSnapshotInterval = 0;
+			backend.ConnectionPool.IsolationLevel = IsolationLevel.ReadUncommitted;
 		
 			CustomizeBackendConfiguration(ref backend);
 		

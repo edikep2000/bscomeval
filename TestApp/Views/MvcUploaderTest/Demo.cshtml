@@ -18,17 +18,15 @@
     <div class="well">
         <legend>Upload Dialog</legend>
         <p class="help-block">jpg/png size max 5 MB, single file upload</p>
+        <input type="text" name="email" id="email" placeholder="Email Address"/>
         @(
         Html.MvcFileUpload()
         .UploadAt(Url.Action("UploadFile"))
         .WithFileTypes(@"/(\.|\/)(jpe?g|png)$/i")
-        .WithMaxFileSize(5000000)        
-        .AddFormField("entityId", "1234")        
+        .WithMaxFileSize(5000000)               
         .RenderPopup("Upload", "#dlgFileUpload", new {@class="btn btn-large btn-primary"})
         )
     </div>
-
-
     <div class="well">
         <legend>Upload Dialog with return url on closing</legend>        
         <p class="help-block">jpg/png size max 5 MB</p>

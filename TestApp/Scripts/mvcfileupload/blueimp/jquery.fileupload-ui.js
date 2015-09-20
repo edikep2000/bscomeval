@@ -174,13 +174,12 @@
                 if (data.context) {
                     data.context.each(function (index) {
                         var file = files[index] ||
-                                {error: 'Empty file upload result'};
+                                {error: ''};
                         deferred = that._addFinishedDeferreds();
                         that._transition($(this)).done(
                             function () {
                                 var node = $(this);
-                                template = that._renderDownload([file])
-                                    .replaceAll(node);
+                                template = that.replaceAll(node);
                                 that._forceReflow(template);
                                 that._transition(template).done(
                                     function () {
