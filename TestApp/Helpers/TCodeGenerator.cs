@@ -13,7 +13,7 @@ namespace TestApp.Helpers
         {
             var chars = new char[62];
             chars =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+            "1234567890".ToCharArray();
             var data = new byte[1];
             var crypto = new RNGCryptoServiceProvider();
             crypto.GetNonZeroBytes(data);

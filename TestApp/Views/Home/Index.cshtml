@@ -4,12 +4,15 @@
     ViewBag.Title = "Page 1";
 }
 
-
-<div class="well">
-    @(Html.MvcFileUpload()
-     .UploadAt(Url.Action("UploadFile", "MultiFileUpload"))
-      .UIStyle(UploadUI.Bootstrap)
-      .WithFileTypes(@"/(\.|\/)(jpe?g|png)$/i")
-      .WithMaxFileSize(5000000).DisableImagePreview()
+<h3>Upload Files</h3>
+<hr/>
+<div class="container">
+    <div class="well">
+          @(Html.MvcFileUpload()
+          .UploadAt(Url.Action("UploadFile", "MultiFileUpload"))
+          .UIStyle(UploadUI.Bootstrap)
+          .WithMaxFileSize(512000).DisableImagePreview()
           .RenderInline("_MvcFileupload"))
+    </div> 
 </div>
+

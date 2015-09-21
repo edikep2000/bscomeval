@@ -66,7 +66,7 @@ namespace TestApp.Controllers
                     x.DeleteUrl = Url.Action("DeleteFile", new { entityId = 1 });
                     x.StorageDirectory = Server.MapPath("~/Content/uploads");
                     x.UrlPrefix = "~/Content/uploads";// this is used to generate the relative url of the file
-                    file.FilePath = "~/Content/Uploads" + file.FileName;
+                    file.FilePath = "~/Content/Uploads/" + file.FileName;
                     file.FileSize = Request.Files[i].ContentLength.ToString("N0");
                     file.DateUploaded = DateTime.Now.ToUniversalTime().ToLongDateString();
                     _fileService.Add(file);
@@ -97,17 +97,7 @@ namespace TestApp.Controllers
         }
 
 
-        public ActionResult DownloadFile(string fileUrl, string mimetype)
-        {
-            var filePath = Server.MapPath("~" + fileUrl);
-
-            if (System.IO.File.Exists(filePath))
-                return File(filePath, mimetype);
-            else
-            {
-                return new HttpNotFoundResult("File not found");
-            }
-        }
+      
 
 
     }

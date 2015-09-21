@@ -1,0 +1,39 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<TestApp.Models.Files>
+@{
+    ViewBag.Title = "Search Results";
+}
+
+<h2>@ViewBag.Title</h2>
+@Html.Partial("_validationSummary")
+
+<div class="container">
+    <div class="well">
+        @using (Html.BeginForm("List", "Files", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                @Html.TextBox("emailAddress", null, new { @class = "form-control", placeholder = "Email Address" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextBox("transId", null, new { @class = "form-control", placeholder = "User Transaction Number" })
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Find Files" />
+        }
+    </div>
+
+</div>
+
+<div class="container">
+    @if (Model == null || !Model.Any())
+    {
+        @Html.Partial("_emptyResultPartial")
+    }
+    else
+    {
+        @Html.Partial("_fileListPartial")
+        <br/>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, emailAddress = Request.QueryString["emailAddress"], transId = Request.QueryString["transId"] }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+    }
+</div>

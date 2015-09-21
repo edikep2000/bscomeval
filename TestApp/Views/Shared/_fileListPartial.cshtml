@@ -1,0 +1,20 @@
+﻿@model PagedList.IPagedList<TestApp.Models.Files>
+    
+@if (Model != null && Model.Any())
+{
+    <h2>Search Results</h2>
+    <hr/>
+    <table class="table table-condensed table-striped">
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.FileTitle</td>
+                <td>@i.FileSize</td>
+                <td>@i.DateUploaded</td>
+                <td>
+                    <a class="btn btn-success" href="@Url.Action("DownloadFile", "Files", new{id = i.Id})">Download File <span class="caret"></span></a>
+                </td>
+            </tr>
+        }
+    </table>
+}

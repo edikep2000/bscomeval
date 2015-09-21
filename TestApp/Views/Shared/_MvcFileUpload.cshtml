@@ -328,7 +328,18 @@ else //inline
                 fullName.val('');
                 email.val('');
                 return false;
-            })
+            });
+            
+            $('#@(formId)').fileupload('option', {
+                dropZone: $('#@(formId)'),
+                maxFileSize: @Model.MaxFileSizeInBytes,
+                maxNumberOfFiles: @maxNoOfFiles,
+                disableImagePreview: @(Model.DisableImagePreview ? "true" : "false"),
+                resizeMaxWidth: 1920,
+                resizeMaxHeight: 1200,
+                acceptFileTypes: @Model.FileTypes,
+                sequentialUploads: false
+            });
 
             $('#alert-success, #alert-error, #alert-warning').hide();
 
@@ -388,15 +399,6 @@ else //inline
                 $('form > .fileupload-progress').hide('fadeOut');
             });
             
-            $('#@(formId)').fileupload('option', {
-                dropZone: $('#@(formId)'),
-                maxFileSize: @Model.MaxFileSizeInBytes,
-                maxNumberOfFiles: @maxNoOfFiles,
-                disableImagePreview: @(Model.DisableImagePreview ? "true" : "false"),
-                resizeMaxWidth: 1920,
-                resizeMaxHeight: 1200,
-                acceptFileTypes: @Model.FileTypes,
-                sequentialUploads: true
-            });
+          
         });
     </script>
